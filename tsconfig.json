@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    // Same aliases as vite.config.ts: the studio's code lives in ../StickMan, and packages resolve
+    // from its node_modules first so there's one copy of React and its types.
+    "paths": {
+      "@/*": ["../StickMan/src/*"],
+      "@server/*": ["../StickMan/server/*"],
+      "@mobile/*": ["src/*"],
+      "*": ["../StickMan/node_modules/@types/*", "../StickMan/node_modules/*", "node_modules/@types/*", "node_modules/*"]
+    }
+  },
+  "include": ["src", "../StickMan/server/voices/espeak-ng.d.ts"]
+}

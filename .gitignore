@@ -1,0 +1,11 @@
+node_modules/
+dist/
+_backup/
+*.log
+.env
+.env.*
+release/
+phone-ui-out/
+--ai/
+.idea/
+.vscode/

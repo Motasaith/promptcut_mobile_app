@@ -1,0 +1,53 @@
+{
+  "name": "promptcut-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PromptCut Studio for Android: the Stickman Studio video editor as an offline phone app.",
+  "author": "Abdul Rauf Azhar (https://github.com/Motasaith)",
+  "license": "AGPL-3.0-or-later",
+  "repository": "https://github.com/Motasaith/promptcut_mobile_app",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "tsc --noEmit -p .",
+    "cap:build": "npm run build && npx cap sync android",
+    "apk:debug": "node scripts/apk.cjs debug",
+    "apk:release": "node scripts/apk.cjs",
+    "aab:release": "node scripts/apk.cjs bundle"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/filesystem": "^8.1.3",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/network": "^8.0.1",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/share": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.3",
+    "buffer": "^6.0.3",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.46.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.1.5",
+    "sonner": "^2.0.1",
+    "tailwind-merge": "^3.0.1",
+    "zod": "^4.6.5",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  }
+}
