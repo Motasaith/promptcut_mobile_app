@@ -73,6 +73,20 @@ export async function speakWithWords(text: string, voice: VoiceId): Promise<{ mp
   const clean = cleanForSpeech(text);
   if (!clean) throw new Error("Nothing to say");
   if (!nativeVoices) {
+    // Test hook for the browser build: borrow real speech from a running desktop studio, so the
+    // phone pipeline can be checked with actual audio (localStorage "testVoiceServer").
+    const server = (() => {
+      try {
+        return localStorage.getItem("testVoiceServer");
+      } catch {
+        return null;
+      }
+    })();
+    if (server) {
+      const res = await fetch(`${server}/api/tts`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text: clean.slice(0, 600), voice }) });
+      const { audio } = (await res.json()) as { audio: string };
+      return { mp3: Buffer.from(audio.split(",")[1], "base64"), words: estimateWords(clean, 0, Math.max(1, clean.split(/\s+/).length / 2.6)) };
+    }
     const seconds = Math.max(1, clean.split(/\s+/).length / 2.6);
     return { mp3: Buffer.from(silence(seconds)), words: estimateWords(clean, 0, seconds) };
   }

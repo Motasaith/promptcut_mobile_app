@@ -9,3 +9,5 @@ phone-ui-out/
 --ai/
 .idea/
 .vscode/
+dist-*/
+*-out/

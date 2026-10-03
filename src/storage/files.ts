@@ -142,7 +142,8 @@ let nativeBase = "";
 export async function prepareFiles() {
   if (isNative) {
     await Filesystem.mkdir({ path: `${ROOT}/media`, directory: Directory.Data, recursive: true }).catch(() => {});
-    nativeBase = (await nativeBackend.url("media/x")).replace(/\/x$/, "");
+    // Android reports folders with a trailing slash ("…/media/"), so it is trimmed.
+    nativeBase = (await nativeBackend.url("media")).replace(/\/+$/, "");
   }
 }
 

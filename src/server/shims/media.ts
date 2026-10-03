@@ -141,8 +141,9 @@ function decoder(): AudioContext {
 
 async function decodeAudio(bytes: Uint8Array): Promise<AudioBuffer | null> {
   try {
-    // decodeAudioData detaches its input, so it gets a copy.
-    return await decoder().decodeAudioData(bytes.slice().buffer);
+    // Buffer.slice() shares storage with the original. Copy into a plain typed
+    // array before decodeAudioData transfers and detaches its input buffer.
+    return await decoder().decodeAudioData(Uint8Array.from(bytes).buffer);
   } catch {
     return null;
   }
@@ -281,8 +282,9 @@ export async function importMedia(input: Buffer | Uint8Array, originalName: stri
     return info;
   }
 
-  // Sound files.
+  // Sound files. The phone's offline voice makes WAV even when the line is named ".mp3".
   if (MIME[ext]?.startsWith("audio/")) {
+    if (head.startsWith("RIFF") && head.slice(8, 12) === "WAVE") ext = ".wav";
     const buf = await decodeAudio(bytes);
     if (!buf) throw new Error("That sound file can't be played on this phone. MP3, WAV or M4A work everywhere.");
     const id = newId("aud");
